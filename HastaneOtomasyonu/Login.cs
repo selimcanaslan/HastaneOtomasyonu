@@ -115,7 +115,41 @@ namespace HastaneOtomasyonu
             }
             else if (loginType == "sekreter")
             {
-
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
+                {
+                    MessageBox.Show("Lütfen Email ve Şifre Bilginizi Giriniz!", "Hata");
+                }
+                else
+                {
+                    DatabaseBaglantisi db = new DatabaseBaglantisi();
+                    DataTable dt = new DataTable();
+                    string query = $"SELECT * FROM Sekreter WHERE email='{email}' AND sifre='{sifre}'";
+                    db.com.Connection = db.con;
+                    db.com.CommandText = query;
+                    db.da.SelectCommand = db.com;
+                    try
+                    {
+                        db.da.Fill(dt);
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (dt.Rows[0]["email"].ToString() == email && dt.Rows[0]["sifre"].ToString() == sifre)
+                        {
+                            SekreterModul sekreterModul = new SekreterModul();
+                            sekreterModul.Closed += (s, args) => this.Show();
+                            this.Hide();
+                            sekreterModul.Show();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Eşleşen Kayıt Bulunamadı!\nEmail ya da şifreniz hatalı!", "HATA");
+                    }
+                }
             }
             else if (loginType == "doktor")
             {

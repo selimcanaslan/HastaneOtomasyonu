@@ -57,8 +57,18 @@ CREATE TABLE RandevuSaatleri (
 	saat varchar(20)
 );
 
+GO
+CREATE PROCEDURE BugununRandevulari
+	@bugun DateTime
+AS
+BEGIN
+SELECT Hasta.id as 'hasta_id', Doktor.ad + ' ' + Doktor.soyad as 'doktor_ad', Hasta.ad + ' ' + Hasta.soyad as 'hasta_ad',
+Hasta.cinsiyet as 'cinsiyet',bolum,FORMAT(tarih,'dd MMMM yyyy', 'tr-TR') as 'tarih',saat,sonuc FROM Randevu
+INNER JOIN Doktor ON Doktor.id = Randevu.doctorId INNER JOIN Hasta ON Hasta.id = Randevu.hastaId WHERE FORMAT(Randevu.tarih, 'yyyy-MM-dd') = FORMAT(@bugun, 'yyyy-MM-dd')
+END;
+
+
 
 SELECT * FROM Doktor
 
 SELECT * FROM Randevu
-

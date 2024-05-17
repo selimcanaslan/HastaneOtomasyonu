@@ -138,7 +138,7 @@ namespace HastaneOtomasyonu
         public DataTable HastaIdIleRandavulariGetir(int hastaId)
         {
             DataTable dt = new DataTable();
-            string query = $"SELECT * FROM Randevu WHERE hastaId = {hastaId}";
+            string query = $"SELECT * FROM Randevu WHERE hastaId = {hastaId} AND tarih >= {DateTime.Today:yyyy-MM-dd HH:mm:ss}";
             db.com.Connection = db.con;
             db.com.CommandText = query;
             db.da.SelectCommand = db.com;
@@ -292,6 +292,11 @@ namespace HastaneOtomasyonu
             else
             {
                 randevuDGV.DataSource = randevuVerisi;
+                randevuDGV.Columns["doktor_ad"].HeaderText = "Doktor";
+                randevuDGV.Columns["bolum"].HeaderText = "Bölüm";
+                randevuDGV.Columns["tarih"].HeaderText = "Tarih";
+                randevuDGV.Columns["saat"].HeaderText = "Saat";
+                randevuDGV.Columns["sonuc"].HeaderText = "Sonuç";
                 randevuYokLabel.Visible = true;
             }
         }
@@ -445,5 +450,6 @@ namespace HastaneOtomasyonu
 
             }
         }
+
     }
 }

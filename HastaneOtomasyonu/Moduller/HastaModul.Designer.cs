@@ -426,6 +426,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.randevuYokLabel);
             this.Controls.Add(this.randevuDGV);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(746, 594);
             this.MinimumSize = new System.Drawing.Size(746, 594);
             this.Name = "HastaModul";
