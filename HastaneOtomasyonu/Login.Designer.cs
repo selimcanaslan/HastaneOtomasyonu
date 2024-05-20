@@ -158,12 +158,14 @@
             // hesapOlusturLabel
             // 
             this.hesapOlusturLabel.AutoSize = true;
+            this.hesapOlusturLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.hesapOlusturLabel.ForeColor = System.Drawing.Color.White;
             this.hesapOlusturLabel.Location = new System.Drawing.Point(10, 215);
             this.hesapOlusturLabel.Name = "hesapOlusturLabel";
             this.hesapOlusturLabel.Size = new System.Drawing.Size(119, 13);
             this.hesapOlusturLabel.TabIndex = 10;
             this.hesapOlusturLabel.Text = "Hesap Oluştur (HASTA)";
+            this.hesapOlusturLabel.Click += new System.EventHandler(this.hesapOlusturLabel_Click);
             // 
             // panel1
             // 

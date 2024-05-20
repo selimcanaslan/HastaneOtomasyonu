@@ -1,4 +1,5 @@
 ﻿using HastaneOtomasyonu.Interfaces;
+using HastaneOtomasyonu.Moduller;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,8 +20,6 @@ namespace HastaneOtomasyonu
         public Login()
         {
             InitializeComponent();
-            mailTextBox.Text = "myaslan333@gmail.com";
-            sifreTextBox.Text = "myaslan333";
             hastaRadioButton.Checked = true;
         }
 
@@ -28,6 +27,8 @@ namespace HastaneOtomasyonu
         {
             if (hastaRadioButton.Checked == true)
             {
+                mailTextBox.Text = "myaslan333@gmail.com";
+                sifreTextBox.Text = "myaslan333";
                 loginType = "hasta";
                 if (sekreterRadioButton.Checked == true) { sekreterRadioButton.Checked = false; }
                 if (doctorRadioButton.Checked == true) { doctorRadioButton.Checked = false; }
@@ -43,6 +44,8 @@ namespace HastaneOtomasyonu
         {
             if (sekreterRadioButton.Checked == true)
             {
+                mailTextBox.Text = "myaslan333@gmail.com";
+                sifreTextBox.Text = "myaslan333";
                 loginType = "sekreter";
                 if (hastaRadioButton.Checked == true) { hastaRadioButton.Checked = false; }
                 if (doctorRadioButton.Checked == true) { doctorRadioButton.Checked = false; }
@@ -58,6 +61,8 @@ namespace HastaneOtomasyonu
         {
             if (doctorRadioButton.Checked == true)
             {
+                mailTextBox.Text = "mmsmsktr2@gmail.com";
+                sifreTextBox.Text = "sifre";
                 loginType = "doktor";
                 if (sekreterRadioButton.Checked == true) { sekreterRadioButton.Checked = false; }
                 if (hastaRadioButton.Checked == true) { hastaRadioButton.Checked = false; }
@@ -153,7 +158,41 @@ namespace HastaneOtomasyonu
             }
             else if (loginType == "doktor")
             {
-
+                if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(sifre))
+                {
+                    MessageBox.Show("Lütfen Email ve Şifre Bilginizi Giriniz!", "Hata");
+                }
+                else
+                {
+                    DatabaseBaglantisi db = new DatabaseBaglantisi();
+                    DataTable dt = new DataTable();
+                    string query = $"SELECT * FROM Doktor WHERE email='{email}' AND sifre='{sifre}'";
+                    db.com.Connection = db.con;
+                    db.com.CommandText = query;
+                    db.da.SelectCommand = db.com;
+                    try
+                    {
+                        db.da.Fill(dt);
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                    if (dt.Rows.Count > 0)
+                    {
+                        if (dt.Rows[0]["email"].ToString() == email && dt.Rows[0]["sifre"].ToString() == sifre)
+                        {
+                            DoktorModul doktorModul = new DoktorModul(Int16.Parse(dt.Rows[0]["id"].ToString()));
+                            doktorModul.Closed += (s, args) => this.Show();
+                            this.Hide();
+                            doktorModul.Show();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Eşleşen Kayıt Bulunamadı!\nEmail ya da şifreniz hatalı!", "HATA");
+                    }
+                }
             }
             else
             {
@@ -173,6 +212,12 @@ namespace HastaneOtomasyonu
                 sifreTextBox.UseSystemPasswordChar = true;
                 sifreGosterGizle.Image = Properties.Resources.show;
             }
+        }
+
+        private void hesapOlusturLabel_Click(object sender, EventArgs e)
+        {
+            HesapOlustur hesapOlustur = new HesapOlustur();
+            hesapOlustur.Show();
         }
     }
 }

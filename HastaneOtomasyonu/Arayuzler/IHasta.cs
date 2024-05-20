@@ -15,5 +15,6 @@ namespace HastaneOtomasyonu.Interfaces
         DataTable HastaBilgileriGetir(int hastaId);
         bool BilgiGuncelle(string ad, string soyad, DateTimePicker dogumTarihi, string tcno, string cinsiyet,
             string adres, string mail, string sifre, int hastaId);
+        void DoktorlariGetir();
     }
 }

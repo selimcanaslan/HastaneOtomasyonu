@@ -25,7 +25,7 @@ namespace HastaneOtomasyonu
         public HastaModul(DataTable dt)
         {
             InitializeComponent();
-            ilkGelenHastaBilgileri = dt;
+            ilkGelenHastaBilgileri = dt; // Yapıcı metot ilk değer ataması
             foreach (DataRow dr in dt.Rows)
             {
                 adTextBox.Text = dr["ad"].ToString();
@@ -50,7 +50,7 @@ namespace HastaneOtomasyonu
         {
         }
 
-        private void DoktorlariGetir()
+        public void DoktorlariGetir()
         {
             DataTable dt = new DataTable();
             string query = $"SELECT * FROM Doktor";

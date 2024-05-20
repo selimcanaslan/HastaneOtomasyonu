@@ -36,7 +36,7 @@ CREATE TABLE Doktor(
 	sifre varchar(30),
 	brans varchar(50)
 );
-
+INSERT Doktor VALUES ('Gulseren','Gul','1969-05-11 07:46:28.453','32132132132','KADIN','Fethiye','gulseren@gmail.com','gulseren','Kadin Dogum')
 CREATE TABLE Randevu (
 	id int identity(1,1) PRIMARY KEY,
 	hastaId int FOREIGN KEY (hastaId) REFERENCES Hasta(id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -71,4 +71,5 @@ END;
 
 SELECT * FROM Doktor
 
-SELECT * FROM Randevu
+SELECT * FROM Hasta
+
